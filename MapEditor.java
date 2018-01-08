@@ -41,7 +41,7 @@ class MapEditor{
         (vidmode.height() - windowHeight) / 2
     );
     glfwMakeContextCurrent(window);
-    glfwSwapInterval(1);//vsync on uses less cpu
+    glfwSwapInterval(1);//vsync on
     glfwShowWindow(window);
     createCapabilities();
     glClearColor(0.0f, 1.0f, 1.0f, 0.0f);
@@ -188,7 +188,7 @@ class MapEditor{
         numFaces += d.faces.length;
         numPoints += d.points.length;
       }
-      
+
       glBufferData(GL_ARRAY_BUFFER,numPoints * 7 * 4,GL_DYNAMIC_DRAW);
       ByteBuffer vertices = glMapBuffer(GL_ARRAY_BUFFER,GL_WRITE_ONLY);
 
@@ -212,18 +212,13 @@ class MapEditor{
   private static GLFWFramebufferSizeCallback resizeWindow = new GLFWFramebufferSizeCallback(){
     @Override
     public void invoke(long window, int width, int height){
-      glViewport(0,0,width,height);
-      windowWidth = width;
-      halfwindowWidth = windowWidth / 2;
-      windowHeight = height;
-      halfwindowHeight = height / 2;
-      aspect = windowWidth / windowHeight;
+      updateWindowVariables(width,height);
     }
   };
-  static int windowWidth = 720;
-  static int windowHeight = 480;
-  static int halfwindowWidth = 360;
-  static int halfwindowHeight = 240;
+  static int windowWidth = 500;
+  static int windowHeight = 500;
+  static int halfwindowWidth = 250;
+  static int halfwindowHeight = 250;
   static float aspect = windowWidth / windowHeight;
   static LinkedList<DrawMe> drawMes = new LinkedList<>();
   //static float fov = 100;
@@ -245,4 +240,17 @@ class MapEditor{
   static int xs;
   static int ys;
   static int zs;
+  static void makeWindowSquare(){
+    if(windowWidth < windowHeight)updateWindowVariables(windowWidth,windowWidth);
+    else updateWindowVariables(windowHeight,windowHeight);
+    glfwSetWindowSize(window, windowWidth, windowHeight);
+  }
+  static void updateWindowVariables(int width, int height){
+    glViewport(0,0,width,height);
+    windowWidth = width;
+    halfwindowWidth = windowWidth / 2;
+    windowHeight = height;
+    halfwindowHeight = height / 2;
+    aspect = windowWidth / windowHeight;
+  }
 }
