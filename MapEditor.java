@@ -41,7 +41,7 @@ class MapEditor{
         (vidmode.height() - windowHeight) / 2
     );
     glfwMakeContextCurrent(window);
-    glfwSwapInterval(0);//vsync off
+    glfwSwapInterval(1);//vsync on uses less cpu
     glfwShowWindow(window);
     createCapabilities();
     glClearColor(0.0f, 1.0f, 1.0f, 0.0f);
