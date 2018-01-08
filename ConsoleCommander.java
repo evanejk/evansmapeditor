@@ -161,6 +161,9 @@ class ConsoleCommander{
             }
         }
         responce = ">straightened out";
+      }else if(next.equals("square")){
+        MapEditor.makeWindowSquare();
+        responce = ">window made square";
       }else if(next.equals("test")){
         for(Block b4:Block.blocks){
           for(Block b1:Block.blocks){
@@ -168,9 +171,9 @@ class ConsoleCommander{
           }
         }
       }else{
-        responce = ">commands: island, save, load/open, q (quit), fill, delete/del, rotate/rot [rotations], replace, size, fixtrannys";
+        responce = ">commands: island, save, load/open, q (quit), fill, delete/del, rotate/rot [rotations], replace, size, fixtrannys, square";
       }
-    }else{responce = ">commands: island, save, load/open, q (quit), fill, delete/del, rotate/rot [rotations], replace, size, fixtrannys";}
+    }else{responce = ">commands: island, save, load/open, q (quit), fill, delete/del, rotate/rot [rotations], replace, size, fixtrannys, square";}
     System.out.printf("%s%n",responce);
   }catch(Exception e){e.printStackTrace();}}
 }
