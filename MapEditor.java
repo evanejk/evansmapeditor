@@ -166,9 +166,8 @@ class MapEditor{
       ).getBuffer());
 
       initializeDataStore();
+      for(;!glUnmapBuffer(GL_ARRAY_BUFFER) || !glUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER);)initializeDataStore();//if false https://www.opengl.org/sdk/docs/man2/xhtml/glMapBuffer.xml reinintialize data store
 
-      if(!glUnmapBuffer(GL_ARRAY_BUFFER))initializeDataStore();//if false https://www.opengl.org/sdk/docs/man2/xhtml/glMapBuffer.xml reinintialize data store
-      if(!glUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER))initializeDataStore();
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
       glDrawElements(GL_TRIANGLES, numFaces * 3, GL_UNSIGNED_INT, 0);
       glfwSwapBuffers(window);
@@ -208,7 +207,7 @@ class MapEditor{
   }
   static float clock;
   static float time;
-  static Matrix4f projection = Matrix4f.projection();
+  static Matrix4f projection = Matrix4f.projection().mul(Matrix4f.translate(0,0,-.1f));
   private static GLFWFramebufferSizeCallback resizeWindow = new GLFWFramebufferSizeCallback(){
     @Override
     public void invoke(long window, int width, int height){
